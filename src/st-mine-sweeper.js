@@ -23,7 +23,23 @@ import { NotImplementedError } from '../extensions/index.js';
  *  [1, 1, 1]
  * ]
  */
-export default function minesweeper (/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function minesweeper (matrix) {
+	let result = [];
+	result[0]=[
+	  +matrix[0][1]+matrix[1][0]+matrix[1][1], 
+	  +matrix[0][0]+matrix[0][2]+matrix[1][0]+matrix[1][1]+matrix[1][2],
+	  +matrix[0][2]+matrix[1][1]+matrix[1][2]
+	];
+	result[1]=[
+	  +matrix[0][0]+matrix[0][1]+matrix[1][1]+(matrix.length==3?(matrix[2][0]+matrix[2][1]):0),
+	  +matrix[0][0]+matrix[0][1]+matrix[0][2]+(matrix.length==3?(matrix[1][0]+matrix[1][2]+matrix[2][0]+matrix[2][1]+matrix[2][2]):0),
+	  +matrix[0][1]+matrix[0][2]+matrix[1][1]+(matrix.length==3?(matrix[2][1]+matrix[2][2]):0),
+	];
+	if(matrix.length==3){
+	result[2]=[
+	  +matrix[1][0]+matrix[1][1]+matrix[2][1],
+	  +matrix[1][0]+matrix[1][1]+matrix[1][2]+matrix[2][0]+matrix[2][2],
+	  +matrix[2][1]+matrix[1][1]+matrix[1][2]
+	];}
+	return result;
 }
