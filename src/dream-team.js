@@ -14,11 +14,17 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 export default function createDreamTeam(members) {
-  /*let result = '';
-  members.sort().forEach((member) => {
-	  if(typeof member = 'string'){
-		  result+=member.replace(/\s+/g, '').toUpperCase()[0];
-	  }
+  if(!(Array.isArray(members)) || members.length==0){
+		return false;
+	}
+	
+  let result = '';
+  
+  members
+    .filter((member) => {return typeof member == 'string'})
+    .map((member) => {return member.replace(/\s+/g, '').toUpperCase()[0];})
+	.sort().forEach((member) => {
+		result+=member;
   });
-  return result.length==0?false:result;*/
+  return result.length==0?false:result;
 }
