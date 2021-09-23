@@ -26,7 +26,9 @@ export default function repeater(str, options) {
 	for(let i = 0; i< options.repeatTimes; i++){
 		let subString = []
 		for(let j = 0; j < (options.additionRepeatTimes==null?1:options.additionRepeatTimes); j++){
-			subString.push(options.addition);
+			if(options.addition !== undefined){
+				subString.push(''+options.addition);
+			}
 		}
 		result.push(str+subString.join(options.additionSeparator==null?'|':options.additionSeparator));
 	}
