@@ -16,6 +16,8 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 export default function repeater(str, options) {
+	options.separator = options.separator==null?'+':options.separator;
+	
 	if(!options.repeatTimes){
 		return str + options.addition;
 	}
@@ -23,7 +25,7 @@ export default function repeater(str, options) {
 	let result = [];
 	for(let i = 0; i< options.repeatTimes; i++){
 		let subString = []
-		for(let j = 0; j < options.additionRepeatTimes; j++){
+		for(let j = 0; j < (options.additionRepeatTimes==null?1:options.additionRepeatTimes); j++){
 			subString.push(options.addition);
 		}
 		result.push(str+subString.join(options.additionSeparator==null?'|':options.additionSeparator));
