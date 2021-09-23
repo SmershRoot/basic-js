@@ -20,12 +20,65 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+	
+	direct;
+	
+	constructor(direct){
+		this.direct = direct;
+	}
+	
+	encrypt(message, key) {
+		if (message == undefined || key == undefined){
+			throw new Error('Incorrect arguments!');
+		}
+		message = message.toUpperCase();
+		key = key.toUpperCase();
+		
+		let result = '';
+		const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+		
+		let keyNumber = 0;
+		for(let i = 0; i<message.length; i++){
+			if(alphabet.indexOf(message[i])>-1){
+				let indexMessage = alphabet.indexOf(message[i]);
+				let keyChar = (keyNumber >= key.length)?key[keyNumber%key.length]:key[keyNumber];
+				let indexKey = alphabet.indexOf(keyChar);
+				
+				keyNumber++;
+				result+= alphabet[(indexMessage+indexKey)%26];
+			}
+			else {
+				result+= message[i];
+			}
+		}
+		return (this.direct==null || this.direct) ? result: result.split('').reverse().join('');
+	}
+	
+	decrypt(message, key) {
+		if (message == undefined || key == undefined){
+			throw new Error('Incorrect arguments!');
+		}
+		
+		message = message.toUpperCase();
+		key = key.toUpperCase();
+		
+		let result = '';
+		const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+		
+		let keyNumber = 0;
+		for(let i = 0; i<message.length; i++){
+			if(alphabet.indexOf(message[i])>-1){
+				let indexMessage = alphabet.indexOf(message[i]);
+				let keyChar = (keyNumber >= key.length)?key[keyNumber%key.length]:key[keyNumber];
+				let indexKey = alphabet.indexOf(keyChar);
+				
+				keyNumber++;
+				result+= alphabet[(indexMessage-indexKey+26)%26];
+			}
+			else {
+				result+= message[i];
+			}
+		}
+		return (this.direct==null || this.direct) ? result: result.split('').reverse().join('');
+	}
 }
